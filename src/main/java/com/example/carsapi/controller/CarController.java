@@ -2,7 +2,6 @@ package com.example.carsapi.controller;
 
 import com.example.carsapi.entity.Car;
 import com.example.carsapi.repository.CarRepository;
-import com.example.carsapi.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,15 +19,10 @@ public class CarController {
     CarRepository carRepository;
 
     @GetMapping("/cars")
-    public ResponseEntity<List<Car>> getAllCars(@RequestParam(required = false) String mark) {
+    public ResponseEntity<List<Car>> getAllCars() {
 
         try {
-            List<Car> cars = new ArrayList<Car>();
-
-            if (mark == null)
-                carRepository.findAll().forEach(cars::add);
-            else
-                carRepository.findByMarkContaining(mark).forEach(cars::add);
+            List<Car> cars = new ArrayList<Car>(carRepository.findAll());
 
             if (cars.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);

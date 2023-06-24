@@ -21,7 +21,7 @@ public class Order {
     @Column(name = "phone")
     private String phone;
 
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "car_id")
     private Car car;
 

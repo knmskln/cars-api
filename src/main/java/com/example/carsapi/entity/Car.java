@@ -2,6 +2,9 @@ package com.example.carsapi.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "cars")
 public class Car {
@@ -24,6 +27,8 @@ public class Car {
     @Column(name = "price")
     private Double price;
 
+    @OneToMany(mappedBy = "car", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> orders = new ArrayList<>();
 
     public Car() {}
 
